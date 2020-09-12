@@ -154,14 +154,15 @@
     (find-file user-init-file))
 
   ;; space leader
-  (general-auto-unbind-keys)
   (general-create-definer space-leader
     :prefix "SPC")
   (general-create-definer space-local-leader
-   :prefix "SPC m")
+    :prefix "SPC m")
 
   ;; leader key
-  (space-leader '(normal motion)
+  (space-leader
+    :states '(normal motion)
+    :keymaps 'override
 
     ;; critical
     "SPC" 'execute-extended-command
@@ -216,7 +217,6 @@
   ;; normal state
   (general-define-key
    :states 'normal
-   "ESC" 'keyboard-quit
    "gcc" 'comment-line)
 
   ;; insert state
