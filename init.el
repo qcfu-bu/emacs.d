@@ -35,6 +35,7 @@
 
 (setq default-frame-alist '((font . "Monaco-14")))
 (add-hook 'prog-mode-hook #'display-line-numbers-mode)
+(save-place-mode 1)
 
 ;; emacs
 (use-package evil
@@ -68,12 +69,14 @@
 
 (use-package ivy-prescient
   :straight t
+  :after ivy
   :config
   (ivy-prescient-mode)
   (prescient-persist-mode))
 
 (use-package company-prescient
   :straight t
+  :after company
   :config
   (company-prescient-mode)
   (prescient-persist-mode))
@@ -99,11 +102,16 @@
 ;; tools
 
 ;; shell
+(defun zsh-term ()
+  "Zsh terminal."
+  (interactive)
+  (term "/bin/zsh"))
+
 (use-package shell-pop
   :straight t
   :config
   (setq shell-pop-shell-type
-	(quote ("term" "*term*" (lambda nil (term shell-pop-term-shell)))))
+	(quote ("term" "*term*" zsh-term)))
   (setq shell-pop-term-shell "/bin/zsh")
   (shell-pop--set-shell-type 'shell-pop-shell-type shell-pop-shell-type))
 
@@ -112,14 +120,16 @@
   :straight t)
 
 (use-package evil-magit
-  :straight t)
+  :straight t
+  :after magit)
 
 ;; treemacs
 (use-package treemacs
   :straight t)
 
 (use-package treemacs-evil
-  :straight t)
+  :straight t
+  :after treemacs)
 
 
 ;; keybindings
@@ -139,15 +149,19 @@
    :keymaps 'company-active-map
    "RET" 'company-complete-selection)
 
+  (defun init-file ()
+    (interactive)
+    (find-file user-init-file))
+
   ;; space leader
   (general-auto-unbind-keys)
-  (general-create-definer leader-def
+  (general-create-definer space-leader
     :prefix "SPC")
-  (general-create-definer local-leader-def
-    :prefix "SPC m")
+  (general-create-definer space-local-leader
+   :prefix "SPC m")
 
   ;; leader key
-  (leader-def '(normal motion)
+  (space-leader '(normal motion)
 
     ;; critical
     "SPC" 'execute-extended-command
@@ -158,7 +172,7 @@
     "fr" 'counsel-recentf
     "fs" 'save-buffer
     "fd" 'dired
-    "fe" '(lambda () (interactive) (find-file user-init-file))
+    "fe" 'init-file
 
     ;; buffer
     "bb" 'ivy-switch-buffer
@@ -190,7 +204,7 @@
 
     ;; shell
     "'" 'shell-pop
-    "\"" '(lambda () (interactive) (term "/bin/zsh"))
+    "\"" 'zsh-term
 
     ;; magit
     "gg" 'magit-status
@@ -214,7 +228,9 @@
   ;; visual state
   (general-define-key
    :states 'visual
-   "gc" 'comment-dwim))
+   "gc" 'comment-dwim)
+
+  )
 
 
 ;; writing
