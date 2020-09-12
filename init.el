@@ -38,6 +38,9 @@
   (when (memq window-system '(mac ns x))
     (exec-path-from-shell-initialize)))
 
+(use-package restart-emacs
+  :straight t)
+
 (add-hook 'prog-mode-hook #'display-line-numbers-mode)
 
 (save-place-mode 1)
@@ -220,6 +223,7 @@
     ;; critical
     "SPC" 'counsel-M-x
     "qq" 'save-buffers-kill-terminal
+    "qr" 'restart-emacs
 
     ;; files
     "ff" 'find-file
