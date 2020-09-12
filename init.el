@@ -142,6 +142,18 @@
   :straight t
   :after treemacs)
 
+;;; projectile
+(use-package projectile
+  :straight t
+  :config
+  (projectile-mode +1))
+
+(use-package counsel-projectile
+  :straight t
+  :after projectile
+  :config
+  (counsel-projectile-mode))
+
 ;;; checker
 (use-package flycheck
   :straight t
@@ -231,6 +243,7 @@
     "fs" 'save-buffer
     "fd" 'dired
     "fi" 'init-file
+    "fp" 'projectile-command-map
 
     ;; buffer
     "bb" 'ivy-switch-buffer
