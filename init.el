@@ -48,8 +48,8 @@
   (evil-mode 1))
 
 (use-package evil-collection
-  :after evil
   :straight t
+  :after evil
   :config
   (evil-collection-init))
 
@@ -162,6 +162,10 @@
    :keymaps 'company-active-map
    "RET" 'company-complete-selection)
 
+  (general-define-key
+   "M-x" 'counsel-M-x
+   "M-f" 'swiper)
+
   (defun init-file ()
     (interactive)
     (find-file user-init-file))
@@ -179,7 +183,7 @@
     :keymaps 'override
 
     ;; critical
-    "SPC" 'execute-extended-command
+    "SPC" 'counsel-M-x
     "qq" 'save-buffers-kill-terminal
 
     ;; files
@@ -187,7 +191,7 @@
     "fr" 'counsel-recentf
     "fs" 'save-buffer
     "fd" 'dired
-    "fe" 'init-file
+    "fi" 'init-file
 
     ;; buffer
     "bb" 'ivy-switch-buffer
@@ -195,18 +199,19 @@
     "bk" 'kill-buffer
     "bd" 'kill-this-buffer
     "be" 'eval-buffer
-    "bn" 'next-buffer
-    "bp" 'previous-buffer
+    "bn" 'evil-next-buffer
+    "bp" 'evil-prev-buffer
 
     ;; windows
     "wh" 'evil-window-left
     "wj" 'evil-window-down
     "wk" 'evil-window-up
     "wl" 'evil-window-right
-    "wo" 'other-window
-    "ws" 'split-window-below
-    "wv" 'split-window-right
-    "wd" 'delete-window
+    "wn" 'evil-window-next
+    "wp" 'evil-window-prev
+    "ws" 'evil-window-split
+    "wv" 'evil-window-vsplit
+    "wd" 'evil-window-delete
     "wD" 'delete-other-windows
 
     ;; describe
@@ -299,6 +304,11 @@
   :straight t
   :defer t)
 
+;; ats
+(load-file "./obscure/ats2-mode.el")
+
+;; fython
+(load-file "./obscure/fython.el")
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
