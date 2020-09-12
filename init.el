@@ -132,7 +132,7 @@
 
 (use-package general
   :straight t
-  :init
+  :config
 
   ;; sanity
   (general-define-key
@@ -245,17 +245,22 @@
   :straight t
   :defer t)
 
+(use-package utop
+  :straight t
+  :defer t
+  :init
+  (setq utop-command "opam config exec -- utop -emacs"))
+
 (use-package tuareg
   :straight t
   :defer t
-  :mode (("\\.ml[ily]?$" . tuareg-mode)
+  :mode (("\\.ml[lipy]?$" . tuareg-mode)
 	 ("\\.topml$" . tuareg-mode))
-  :config
-  (add-hook 'tuareg-mode-hook 'merlin-mode))
+  :init
+  (add-hook 'tuareg-mode-hook 'merlin-mode)
+  (add-hook 'tuareg-mode-hook 'utop-minor-mode)
+  )
 
-(use-package utop
-  :straight t
-  :defer t)
 
 ;; coq
 (use-package proof-general
