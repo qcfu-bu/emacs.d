@@ -1,6 +1,6 @@
 ;;; package --- Summary
 ;;; Commentary:
-;;; qcfu-bu's Emacs config
+;;; My janky config.
 ;;;
 ;;; code:
 
@@ -36,6 +36,7 @@
 (setq default-frame-alist '((font . "Monaco-14")))
 (add-hook 'prog-mode-hook #'display-line-numbers-mode)
 (save-place-mode 1)
+
 
 ;; emacs
 (use-package evil
@@ -131,6 +132,18 @@
   :straight t
   :after treemacs)
 
+;; todo
+(use-package hl-todo
+  :straight t
+  :config
+  (add-hook 'prog-mode-hook #'hl-todo-mode)
+  (setq hl-todo-keyword-faces
+      '(("TODO"   . "orange")
+        ("FIXME"  . "red")
+        ("DEBUG"  . "purple")
+        ("GOTCHA" . "lime green")
+        ("STUB"   . "deep sky blue"))))
+
 
 ;; keybindings
 
@@ -156,6 +169,7 @@
   ;; space leader
   (general-create-definer space-leader
     :prefix "SPC")
+
   (general-create-definer space-local-leader
     :prefix "SPC m")
 
@@ -211,8 +225,7 @@
     "gg" 'magit-status
 
     ;; treemacs
-    "tt" 'treemacs
-    )
+    "tt" 'treemacs)
 
   ;; normal state
   (general-define-key
@@ -228,9 +241,7 @@
   ;; visual state
   (general-define-key
    :states 'visual
-   "gc" 'comment-dwim)
-
-  )
+   "gc" 'comment-dwim))
 
 
 ;; writing
@@ -274,9 +285,7 @@
 	 ("\\.topml$" . tuareg-mode))
   :init
   (add-hook 'tuareg-mode-hook 'merlin-mode)
-  (add-hook 'tuareg-mode-hook 'utop-minor-mode)
-  )
-
+  (add-hook 'tuareg-mode-hook 'utop-minor-mode))
 
 ;; coq
 (use-package proof-general
@@ -289,7 +298,6 @@
 (use-package company-coq
   :straight t
   :defer t)
-
 
 
 (custom-set-variables
