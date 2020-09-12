@@ -36,6 +36,7 @@
 (setq default-frame-alist '((font . "Monaco-14")))
 (add-hook 'prog-mode-hook #'display-line-numbers-mode)
 (save-place-mode 1)
+(scroll-bar-mode -1)
 
 
 ;; emacs
@@ -305,10 +306,10 @@
   :defer t)
 
 ;; ats
-(load-file "./obscure/ats2-mode.el")
+(load-file "~/.emacs.d/obscure/ats2-mode.el")
 
 ;; fython
-(load-file "./obscure/fython.el")
+(load-file "~/.emacs.d/obscure/fython.el")
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
