@@ -101,6 +101,8 @@
     "bk" 'kill-buffer
     "bd" 'kill-this-buffer
     "be" 'eval-buffer
+    "bn" 'next-buffer
+    "bp" 'previous-buffer
 
     ;; windows
     "wh" 'evil-window-left
@@ -112,6 +114,9 @@
     "wv" 'split-window-right
     "wd" 'delete-window
     "wD" 'delete-other-windows
+
+    ;; open
+    "oo" 'make-frame
 
     ;; describe
     "hv" 'describe-variable
@@ -174,8 +179,7 @@
   :config
   (require 'smartparens-config)
   (add-hook 'prog-mode-hook #'show-smartparens-mode)
-  (add-hook 'prog-mode-hook #'smartparens-mode)
-  )
+  (add-hook 'prog-mode-hook #'smartparens-mode))
 
 (use-package rainbow-delimiters
   :straight t
@@ -199,8 +203,7 @@
   (setq shell-pop-term-shell "/bin/zsh")
   (shell-pop--set-shell-type 'shell-pop-shell-type shell-pop-shell-type)
   (leader-def
-    :states '(normal
-	      motion)
+    :states '(normal motion)
     "'" 'shell-pop
     "\"" '(lambda () (interactive) (term "/bin/zsh"))))
 
@@ -210,6 +213,17 @@
   :config
   (leader-def 'normal
     "gg" 'magit-status))
+
+;; treemacs
+(use-package treemacs
+  :straight t
+  :config
+  (leader-def
+    :states '(normal motion)
+    "op" 'treemacs))
+
+(use-package treemacs-evil
+  :straight t)
 
 
 ;; writing
