@@ -37,6 +37,8 @@
 (add-hook 'prog-mode-hook #'display-line-numbers-mode)
 (save-place-mode 1)
 (scroll-bar-mode -1)
+(menu-bar-mode -1)
+(tool-bar-mode -1)
 
 
 ;; emacs
@@ -132,6 +134,13 @@
 (use-package treemacs-evil
   :straight t
   :after treemacs)
+
+(use-package smart-mode-line
+  :straight t
+  :init
+  (setq sml/no-confirm-load-theme t)
+  :config
+  (sml/setup))
 
 ;; todo
 (use-package hl-todo
@@ -323,3 +332,5 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+;;; init.el ends here
