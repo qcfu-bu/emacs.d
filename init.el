@@ -33,18 +33,10 @@
   (when (memq window-system '(mac ns x))
     (exec-path-from-shell-initialize)))
 
-(setq visible-bell t)
-
-(recentf-mode 1)
-(setq recentf-max-menu-items 25)
-(setq recentf-max-saved-items 25)
-(global-set-key "\C-x\ \C-r" 'recentf-open-files)
-
 (setq default-frame-alist '((font . "Monaco-14")))
 (add-hook 'prog-mode-hook #'display-line-numbers-mode)
 
-
-;; keybindings
+;; emacs
 (use-package evil
   :straight t
   :init
@@ -59,97 +51,12 @@
   :config
   (evil-collection-init))
 
-(use-package evil-magit
-  :straight t
-  :config
-  (require 'evil-magit))
-
-(use-package key-chord
-  :straight t
-  :config
-  (setq key-chord-two-keys-delay 0.5)
-  (key-chord-mode 1))
-
-(use-package general
-  :straight t
-  :init
-
-  ;; space leader
-  (general-auto-unbind-keys)
-  (general-create-definer leader-def
-    :prefix "SPC")
-  (general-create-definer local-leader-def
-    :prefix "SPC m")
-
-  ;; leader key
-  (leader-def '(normal motion)
-
-    ;; critical
-    "SPC" 'execute-extended-command
-    "qq" 'save-buffers-kill-terminal
-
-    ;; files
-    "ff" 'find-file
-    "fr" 'recentf-open-files
-    "fs" 'save-buffer
-    "fd" 'dired
-    "fe" '(lambda () (interactive) (find-file user-init-file))
-
-    ;; buffer
-    "bb" 'ivy-switch-buffer
-    "bB" 'list-buffers
-    "bk" 'kill-buffer
-    "bd" 'kill-this-buffer
-    "be" 'eval-buffer
-    "bn" 'next-buffer
-    "bp" 'previous-buffer
-
-    ;; windows
-    "wh" 'evil-window-left
-    "wj" 'evil-window-down
-    "wk" 'evil-window-up
-    "wl" 'evil-window-right
-    "wo" 'other-window
-    "ws" 'split-window-below
-    "wv" 'split-window-right
-    "wd" 'delete-window
-    "wD" 'delete-other-windows
-
-    ;; open
-    "oo" 'make-frame
-
-    ;; describe
-    "hv" 'describe-variable
-    "hk" 'describe-key
-    "hf" 'describe-function
-
-    )
-
-  ;; normal state
-  (general-define-key
-   :states 'normal
-   "ESC" 'keyboard-quit
-   "gcc" 'comment-line)
-
-  ;; insert state
-  (general-define-key
-   :states 'insert
-   (general-chord "jk") 'evil-normal-state
-   (general-chord "kj") 'evil-normal-state)
-
-  ;; visual state
-  (general-define-key
-   :states 'visual
-   "gc" 'comment-dwim))
-
-
-;; emacs
 (use-package which-key
   :straight t
   :config
   (which-key-mode))
 
-(use-package ivy
+(use-package counsel
   :straight t
   :config
   (ivy-mode))
@@ -157,10 +64,7 @@
 (use-package company
   :straight t
   :config
-  (add-hook 'prog-mode-hook #'company-mode)
-  (general-define-key
-   :keymaps 'company-active-map
-   "RET" 'company-complete-selection))
+  (add-hook 'prog-mode-hook #'company-mode))
 
 (use-package ivy-prescient
   :straight t
@@ -201,42 +105,133 @@
   (setq shell-pop-shell-type
 	(quote ("term" "*term*" (lambda nil (term shell-pop-term-shell)))))
   (setq shell-pop-term-shell "/bin/zsh")
-  (shell-pop--set-shell-type 'shell-pop-shell-type shell-pop-shell-type)
-  (leader-def
-    :states '(normal motion)
-    "'" 'shell-pop
-    "\"" '(lambda () (interactive) (term "/bin/zsh"))))
+  (shell-pop--set-shell-type 'shell-pop-shell-type shell-pop-shell-type))
 
 ;; git
 (use-package magit
-  :straight t
-  :config
-  (leader-def 'normal
-    "gg" 'magit-status))
+  :straight t)
+
+(use-package evil-magit
+  :straight t)
 
 ;; treemacs
 (use-package treemacs
-  :straight t
-  :config
-  (leader-def
-    :states '(normal motion)
-    "op" 'treemacs))
+  :straight t)
 
 (use-package treemacs-evil
   :straight t)
 
 
+;; keybindings
+
+(use-package key-chord
+  :straight t
+  :config
+  (setq key-chord-two-keys-delay 0.5)
+  (key-chord-mode 1))
+
+(use-package general
+  :straight t
+  :init
+
+  ;; sanity
+  (general-define-key
+   :keymaps 'company-active-map
+   "RET" 'company-complete-selection)
+
+  ;; space leader
+  (general-auto-unbind-keys)
+  (general-create-definer leader-def
+    :prefix "SPC")
+  (general-create-definer local-leader-def
+    :prefix "SPC m")
+
+  ;; leader key
+  (leader-def '(normal motion)
+
+    ;; critical
+    "SPC" 'execute-extended-command
+    "qq" 'save-buffers-kill-terminal
+
+    ;; files
+    "ff" 'find-file
+    "fr" 'counsel-recentf
+    "fs" 'save-buffer
+    "fd" 'dired
+    "fe" '(lambda () (interactive) (find-file user-init-file))
+
+    ;; buffer
+    "bb" 'ivy-switch-buffer
+    "bB" 'list-buffers
+    "bk" 'kill-buffer
+    "bd" 'kill-this-buffer
+    "be" 'eval-buffer
+    "bn" 'next-buffer
+    "bp" 'previous-buffer
+
+    ;; windows
+    "wh" 'evil-window-left
+    "wj" 'evil-window-down
+    "wk" 'evil-window-up
+    "wl" 'evil-window-right
+    "wo" 'other-window
+    "ws" 'split-window-below
+    "wv" 'split-window-right
+    "wd" 'delete-window
+    "wD" 'delete-other-windows
+
+    ;; describe
+    "hv" 'describe-variable
+    "hk" 'describe-key
+    "hf" 'describe-function
+
+    ;; open
+    "oo" 'make-frame
+
+    ;; shell
+    "'" 'shell-pop
+    "\"" '(lambda () (interactive) (term "/bin/zsh"))
+
+    ;; magit
+    "gg" 'magit-status
+
+    ;; treemacs
+    "tt" 'treemacs
+    )
+
+  ;; normal state
+  (general-define-key
+   :states 'normal
+   "ESC" 'keyboard-quit
+   "gcc" 'comment-line)
+
+  ;; insert state
+  (general-define-key
+   :states 'insert
+   (general-chord "jk") 'evil-normal-state
+   (general-chord "kj") 'evil-normal-state)
+
+  ;; visual state
+  (general-define-key
+   :states 'visual
+   "gc" 'comment-dwim))
+
+
 ;; writing
+
+;; org
 (use-package org
   :straight t
   :defer t
   :mode (("\\.org\\'" . org-mode)))
 
+;; latex
 (use-package tex-site
   :straight auctex
   :defer t
   :mode (("\\.tex\\'" . latex-mode)))
 
+;; markdown
 (use-package markdown-mode
   :straight t
   :defer t
@@ -273,6 +268,7 @@
 (use-package company-coq
   :straight t
   :defer t)
+
 
 
 (custom-set-variables
