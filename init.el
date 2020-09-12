@@ -37,8 +37,9 @@
   (setq exec-path-from-shell-check-startup-files nil)
   (when (memq window-system '(mac ns x))
     (exec-path-from-shell-initialize)))
-(setq default-frame-alist '((font . "Monaco-14")))
+
 (add-hook 'prog-mode-hook #'display-line-numbers-mode)
+
 (save-place-mode 1)
 (scroll-bar-mode -1)
 (menu-bar-mode -1)
@@ -149,14 +150,6 @@
   :config
   (add-hook 'text-mode #'flyspell-mode))
 
-;;; modeline
-(use-package smart-mode-line
-  :straight t
-  :init
-  (setq sml/no-confirm-load-theme t)
-  :config
-  (sml/setup))
-
 ;;; todo
 (use-package hl-todo
   :straight t
@@ -168,6 +161,22 @@
         ("DEBUG"  . "purple")
         ("GOTCHA" . "lime green")
         ("STUB"   . "deep sky blue"))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;; appearance
+
+;;; modeline
+(use-package smart-mode-line
+  :straight t
+  :init
+  (setq sml/no-confirm-load-theme t)
+  :config
+  (sml/setup))
+
+;;; font
+(setq default-frame-alist '((font . "Monaco-14")))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -244,6 +253,7 @@
     "hv" 'describe-variable
     "hk" 'describe-key
     "hf" 'describe-function
+    "ht" 'counsel-load-theme
 
     ;; open
     "oo" 'make-frame
