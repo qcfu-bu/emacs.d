@@ -4,13 +4,16 @@
 ;;;
 ;;; code:
 
-;; hacks
+;;; hacks: adjusting garbage collection threshold to improve load times
 (setq gc-cons-threshold 100000000)
 (add-hook 'after-init-hook (lambda () (setq gc-cons-threshold 800000)))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; bootstrap package manager
+;;; package manager
 (defvar bootstrap-version)
+(setq straight-process-buffer " *straight-process*")
 (let ((bootstrap-file
        (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
       (bootstrap-version 5))
@@ -24,15 +27,16 @@
   (load bootstrap-file nil 'nomessage))
 (straight-use-package 'use-package)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; sanity
+;;; sanity
 (use-package exec-path-from-shell
   :straight t
   :config
   (setq exec-path-from-shell-check-startup-files nil)
   (when (memq window-system '(mac ns x))
     (exec-path-from-shell-initialize)))
-
 (setq default-frame-alist '((font . "Monaco-14")))
 (add-hook 'prog-mode-hook #'display-line-numbers-mode)
 (save-place-mode 1)
@@ -40,8 +44,10 @@
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; emacs
+;;; emacs
 (use-package evil
   :straight t
   :init
@@ -97,15 +103,12 @@
   :config
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 
-(use-package flycheck
-  :straight t
-  :config
-  (add-hook 'prog-mode-hook #'flycheck-mode))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;;; tools
 
-;; tools
-
-;; shell
+;;; shell
 (defun zsh-term ()
   "Zsh terminal."
   (interactive)
@@ -119,7 +122,7 @@
   (setq shell-pop-term-shell "/bin/zsh")
   (shell-pop--set-shell-type 'shell-pop-shell-type shell-pop-shell-type))
 
-;; git
+;;; git
 (use-package magit
   :straight t)
 
@@ -127,7 +130,7 @@
   :straight t
   :after magit)
 
-;; treemacs
+;;; treemacs
 (use-package treemacs
   :straight t)
 
@@ -135,6 +138,18 @@
   :straight t
   :after treemacs)
 
+;;; checker
+(use-package flycheck
+  :straight t
+  :config
+  (add-hook 'prog-mode-hook #'flycheck-mode))
+
+(use-package flyspell
+  :straight t
+  :config
+  (add-hook 'text-mode #'flyspell-mode))
+
+;;; modeline
 (use-package smart-mode-line
   :straight t
   :init
@@ -142,7 +157,7 @@
   :config
   (sml/setup))
 
-;; todo
+;;; todo
 (use-package hl-todo
   :straight t
   :config
@@ -154,9 +169,10 @@
         ("GOTCHA" . "lime green")
         ("STUB"   . "deep sky blue"))))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; keybindings
-
+;;; keybindings
 (use-package key-chord
   :straight t
   :config
@@ -258,31 +274,35 @@
    :states 'visual
    "gc" 'comment-dwim))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; writing
+;;; writing
 
-;; org
+;;; org
 (use-package org
   :straight t
   :defer t
   :mode (("\\.org\\'" . org-mode)))
 
-;; latex
+;;; latex
 (use-package tex-site
   :straight auctex
   :defer t
   :mode (("\\.tex\\'" . latex-mode)))
 
-;; markdown
+;;; markdown
 (use-package markdown-mode
   :straight t
   :defer t
   :mode (("\\.md\\'" . markdown-mode)))
          
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; languages
+;;; languages
 
-;; ocaml
+;;; ocaml
 (use-package merlin
   :straight t
   :defer t)
@@ -302,7 +322,7 @@
   (add-hook 'tuareg-mode-hook 'merlin-mode)
   (add-hook 'tuareg-mode-hook 'utop-minor-mode))
 
-;; coq
+;;; coq
 (use-package proof-general
   :straight t
   :defer t
@@ -314,11 +334,14 @@
   :straight t
   :defer t)
 
-;; ats
+;;; ats
 (load-file "~/.emacs.d/obscure/ats2-mode.el")
 
-;; fython
+;;; fython
 (load-file "~/.emacs.d/obscure/fython.el")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
