@@ -192,7 +192,7 @@
 ;;; elegance
 (use-package elegance
   :straight (elegance :type git :host github :repo "rougier/elegant-emacs")
-  :init
+  :config
   (require 'elegance)
   (require 'sanity))
 
