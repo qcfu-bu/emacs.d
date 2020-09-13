@@ -5,8 +5,8 @@
 ;;; code:
 
 ;;; hacks: adjusting garbage collection threshold to improve load times
-(setq gc-cons-threshold 100000000)
-(add-hook 'after-init-hook (lambda () (setq gc-cons-threshold 800000)))
+(setq gc-cons-threshold 402653184)
+(add-hook 'after-init-hook (lambda () (setq gc-cons-threshold 16777216)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
