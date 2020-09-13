@@ -1,19 +1,27 @@
 ;;; package --- Summary
 ;;; Commentary:
-;;; A Minimal Emacs Configuration.
+;;; Another Emacs Configuration.
 ;;;
 ;;; code:
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; hacks ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; startup ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (setq gc-cons-threshold 402653184)
-(add-hook 'after-init-hook (lambda () (setq gc-cons-threshold 16777216)))
+(add-hook
+ 'after-init-hook
+ (lambda () (setq gc-cons-threshold 16777216)))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; package manager ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(setq inhibit-startup-screen t)
+(setq inhibit-startup-echo-area-message t)
+(setq inhibit-startup-message t)
+(setq initial-scratch-message nil)
+(setq-default indent-tabs-mode nil)
+(tool-bar-mode 0)
+(tooltip-mode  0)
+(scroll-bar-mode 0)
+(save-place-mode 1)
 
 (defvar bootstrap-version)
 (setq straight-process-buffer " *straight-process*")
@@ -30,10 +38,6 @@
   (load bootstrap-file nil 'nomessage))
 (straight-use-package 'use-package)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; sanity ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 (use-package exec-path-from-shell
   :straight t
   :config
@@ -46,7 +50,6 @@
 (use-package restart-emacs
   :straight t)
 
-(add-hook 'prog-mode-hook #'display-line-numbers-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; emacs ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -189,12 +192,15 @@
   :config
   (sml/setup))
 
-;;; elegance
-(use-package elegance
-  :straight (elegance :type git :host github :repo "qcfu-bu/elegant-emacs")
-  :config
-  (require 'elegance)
-  (require 'sanity))
+;;; themes
+(use-package doom-themes
+  :straight t)
+
+;;; font
+(setq default-frame-alist '((font . "Roboto Mono-14")))
+
+;;; line numbers
+(add-hook 'prog-mode-hook #'display-line-numbers-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; keybindings ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -336,14 +342,14 @@
   :mode (("\\.org\\'" . org-mode)))
 
 ;;; latex
-(use-package latex-preview-pane
-  :straight t
-  :defer t)
-
 (use-package tex-site
   :straight auctex
   :defer t
   :mode (("\\.tex\\'" . latex-mode)))
+
+(use-package latex-preview-pane
+  :straight t
+  :defer t)
 
 ;;; markdown
 (use-package markdown-mode
