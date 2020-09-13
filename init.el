@@ -22,7 +22,7 @@
 (setq-default line-spacing 0)
 (setq-default indent-tabs-mode nil)
 (tool-bar-mode 0)
-(tooltip-mode  0)
+(tooltip-mode 0)
 (scroll-bar-mode 0)
 (blink-cursor-mode 0)
 (save-place-mode 1)
@@ -371,7 +371,8 @@
   :straight t
   :defer t
   :init
-  (setq utop-command "opam config exec -- utop -emacs"))
+  (setq utop-command "opam config exec -- utop -emacs")
+  (add-hook 'utop-mode-hook #'company-mode))
 
 (use-package tuareg
   :straight t
@@ -379,8 +380,19 @@
   :mode (("\\.ml[lipy]?$" . tuareg-mode)
 	 ("\\.topml$" . tuareg-mode))
   :init
-  (add-hook 'tuareg-mode-hook #'merlin-mode)
-  (add-hook 'tuareg-mode-hook #'utop-minor-mode))
+  (add-hook 'tuareg-mode-hook 'merlin-mode)
+  (add-hook 'tuareg-mode-hook 'utop-minor-mode)
+  :config
+  (space-local-leader
+    :states '(normal motion)
+    :keymaps 'tuareg-mode-map
+    "t" 'merlin-type-enclosing
+    "d" 'merlin-destruct
+    "s" 'utop
+    "e" 'utop-eval-phrase
+    "r" 'utop-eval-region
+    "b" 'utop-eval-buffer
+    "k" 'utop-kill))
 
 ;;; coq
 (use-package proof-general
