@@ -48,11 +48,6 @@
 
 (add-hook 'prog-mode-hook #'display-line-numbers-mode)
 
-(save-place-mode 1)
-(scroll-bar-mode -1)
-(menu-bar-mode -1)
-(tool-bar-mode -1)
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; emacs ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -194,8 +189,12 @@
   :config
   (sml/setup))
 
-;;; font
-(setq default-frame-alist '((font . "Monaco-14")))
+;;; elegance
+(use-package elegance
+  :straight (elegance :type git :host github :repo "rougier/elegant-emacs")
+  :init
+  (require 'elegance)
+  (require 'sanity))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; keybindings ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
