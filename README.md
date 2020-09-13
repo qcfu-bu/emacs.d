@@ -6,3 +6,5 @@ based key-bindings to vanilla emacs. The two core packages that make
 this possible are evil-mode and general-mode.
 
 The configuration is intentionally dumb, because I am dumb.
+
+Tested on Emacs 27.1.
