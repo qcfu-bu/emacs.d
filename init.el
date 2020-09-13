@@ -339,9 +339,7 @@
 ;;; latex
 (use-package latex-preview-pane
   :straight t
-  :defer t
-  :config
-  (latex-preview-pane-enable))
+  :defer t)
 
 (use-package tex-site
   :straight auctex
