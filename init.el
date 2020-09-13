@@ -1,6 +1,6 @@
 ;;; package --- Summary
 ;;; Commentary:
-;;; My Horrible Emacs Configuration.
+;;; A Minimal Emacs Configuration.
 ;;;
 ;;; code:
 
@@ -191,7 +191,7 @@
 
 ;;; elegance
 (use-package elegance
-  :straight (elegance :type git :host github :repo "rougier/elegant-emacs")
+  :straight (elegance :type git :host github :repo "qcfu-bu/elegant-emacs")
   :config
   (require 'elegance)
   (require 'sanity))
