@@ -17,10 +17,14 @@
 (setq inhibit-startup-echo-area-message t)
 (setq inhibit-startup-message t)
 (setq initial-scratch-message nil)
+(setq visible-bell t)
+(setq ring-bell-function 'ignore)
+(setq-default line-spacing 0)
 (setq-default indent-tabs-mode nil)
 (tool-bar-mode 0)
 (tooltip-mode  0)
 (scroll-bar-mode 0)
+(blink-cursor-mode 0)
 (save-place-mode 1)
 
 (defvar bootstrap-version)
@@ -41,8 +45,6 @@
 (use-package exec-path-from-shell
   :straight t
   :config
-  (setq exec-path-from-shell-check-startup-files nil)
-  (setq exec-path-from-shell-arguments nil)
   (when (memq window-system '(mac ns x))
     (exec-path-from-shell-copy-env "PATSHOME")
     (exec-path-from-shell-initialize)))
@@ -50,9 +52,8 @@
 (use-package restart-emacs
   :straight t)
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; emacs ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; core ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (use-package evil
