@@ -163,7 +163,7 @@
 (use-package flyspell
   :straight t
   :config
-  (add-hook 'text-mode #'flyspell-mode))
+  (add-hook 'text-mode-hook #'flyspell-mode))
 
 ;;; todo
 (use-package hl-todo
