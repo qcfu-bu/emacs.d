@@ -337,6 +337,12 @@
   :mode (("\\.org\\'" . org-mode)))
 
 ;;; latex
+(use-package latex-preview-pane
+  :straight t
+  :defer t
+  :config
+  (latex-preview-pane-enable))
+
 (use-package tex-site
   :straight auctex
   :defer t
@@ -370,8 +376,8 @@
   :mode (("\\.ml[lipy]?$" . tuareg-mode)
 	 ("\\.topml$" . tuareg-mode))
   :init
-  (add-hook 'tuareg-mode-hook 'merlin-mode)
-  (add-hook 'tuareg-mode-hook 'utop-minor-mode))
+  (add-hook 'tuareg-mode-hook #'merlin-mode)
+  (add-hook 'tuareg-mode-hook #'utop-minor-mode))
 
 ;;; coq
 (use-package proof-general
