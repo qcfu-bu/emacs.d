@@ -216,9 +216,22 @@
    "M-x" 'counsel-M-x
    "M-f" 'swiper)
 
+  ;; helper
   (defun init-file ()
     (interactive)
     (find-file user-init-file))
+
+  (defun kill-compilation ()
+    (interactive)
+    (quit-windows-on "*compilation*"))
+
+  (defun scratch-buffer ()
+    (interactive)
+    (switch-to-buffer "*scratch*"))
+
+  (defun message-buffer ()
+    (interactive)
+    (switch-to-buffer "*Messages*"))
 
   ;; space leader
   (general-create-definer space-leader
@@ -243,7 +256,6 @@
     "fs" 'save-buffer
     "fd" 'dired
     "fi" 'init-file
-    "fp" 'projectile-command-map
 
     ;; buffer
     "bb" 'ivy-switch-buffer
@@ -253,6 +265,8 @@
     "be" 'eval-buffer
     "bn" 'evil-next-buffer
     "bp" 'evil-prev-buffer
+    "bs" 'scratch-buffer
+    "bm" 'message-buffer
 
     ;; windows
     "wh" 'evil-window-left
@@ -279,8 +293,15 @@
     "'" 'shell-pop
     "\"" 'zsh-term
 
+    ;; compile
+    "cc" 'compile
+    "cd" 'kill-compilation
+
     ;; magit
     "gg" 'magit-status
+
+    ;; projectile
+    "pp" 'projectile-command-map
 
     ;; treemacs
     "tt" 'treemacs)
