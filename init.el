@@ -35,7 +35,9 @@
   :straight t
   :config
   (setq exec-path-from-shell-check-startup-files nil)
+  (setq exec-path-from-shell-arguments nil)
   (when (memq window-system '(mac ns x))
+    (exec-path-from-shell-copy-env "PATSHOME")
     (exec-path-from-shell-initialize)))
 
 (use-package restart-emacs
@@ -78,6 +80,11 @@
 
 (use-package company
   :straight t
+  :init
+  (setq company-tooltip-limit 20)
+  (setq company-idle-delay 0.3)
+  (setq company-echo-delay 0)
+  (setq company-begin-commands '(self-insert-command))
   :config
   (add-hook 'prog-mode-hook #'company-mode))
 
@@ -113,16 +120,12 @@
 ;;; tools
 
 ;;; shell
-(defun zsh-term ()
-  "Zsh terminal."
-  (interactive)
-  (term "/bin/zsh"))
-
 (use-package shell-pop
   :straight t
   :config
   (setq shell-pop-shell-type
-	(quote ("term" "*term*" zsh-term)))
+	(quote ("term" "*terminal-popup*"
+		(lambda nil (term shell-pop-term-shell)))))
   (setq shell-pop-term-shell "/bin/zsh")
   (shell-pop--set-shell-type 'shell-pop-shell-type shell-pop-shell-type))
 
@@ -278,7 +281,7 @@
     "ws" 'evil-window-split
     "wv" 'evil-window-vsplit
     "wd" 'evil-window-delete
-    "wD" 'delete-other-windows
+    "ww" 'delete-other-windows
 
     ;; describe
     "hv" 'describe-variable
@@ -383,6 +386,9 @@
   :defer t)
 
 ;;; ats
+(use-package smart-compile
+  :straight t)
+
 (load-file "~/.emacs.d/obscure/ats2-mode.el")
 
 ;;; fython
