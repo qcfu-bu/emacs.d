@@ -1,6 +1,6 @@
 ;;; package --- Summary
 ;;; Commentary:
-;;; My janky config.
+;;; My Horrible Emacs Configuration.
 ;;;
 ;;; code:
 
