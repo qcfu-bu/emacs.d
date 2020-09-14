@@ -46,7 +46,6 @@
   :straight t
   :config
   (when (memq window-system '(mac ns x))
-    (exec-path-from-shell-copy-env "PATSHOME")
     (exec-path-from-shell-initialize)))
 
 (use-package restart-emacs
@@ -340,7 +339,9 @@
 (use-package org
   :straight t
   :defer t
-  :mode (("\\.org\\'" . org-mode)))
+  :mode (("\\.org\\'" . org-mode))
+  :config
+  (setq org-list-allow-alphabetical t))
 
 ;;; latex
 (use-package tex-site
