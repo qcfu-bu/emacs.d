@@ -209,7 +209,6 @@
 (use-package key-chord
   :straight t
   :config
-  (setq key-chord-two-keys-delay 0.5)
   (key-chord-mode 1))
 
 (use-package general
@@ -241,6 +240,10 @@
   (defun message-buffer ()
     (interactive)
     (switch-to-buffer "*Messages*"))
+
+  (defun zsh-term ()
+    (interactive)
+    (term "/bin/zsh"))
 
   ;; space leader
   (general-create-definer space-leader
@@ -341,6 +344,7 @@
   :defer t
   :mode (("\\.org\\'" . org-mode))
   :config
+  (setq org-highlight-latex-and-related '(latex))
   (setq org-list-allow-alphabetical t))
 
 ;;; latex
