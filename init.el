@@ -184,17 +184,11 @@
 ;;; appearance ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; modeline
-(use-package smart-mode-line
-  :straight t
-  :init
-  (setq sml/no-confirm-load-theme t)
-  :config
-  (sml/setup))
-
 ;;; themes
 (use-package doom-themes
-  :straight t)
+  :straight t
+  :config
+  (load-theme 'doom-one-light t))
 
 ;;; font
 (setq default-frame-alist '((font . "Roboto Mono-14")))
