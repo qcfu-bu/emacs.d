@@ -387,6 +387,7 @@
     :keymaps 'tuareg-mode-map
     "t" 'merlin-type-enclosing
     "d" 'merlin-destruct
+    "x" 'merlin-error-next
     "s" 'utop
     "e" 'utop-eval-phrase
     "r" 'utop-eval-region
