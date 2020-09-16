@@ -302,12 +302,13 @@
     "ws" 'evil-window-split
     "wv" 'evil-window-vsplit
     "wd" 'evil-window-delete
-    "ww" 'delete-other-windows
+    "wD" 'delete-other-windows
 
     ;; describe
     "hv" 'describe-variable
     "hk" 'describe-key
     "hf" 'describe-function
+    "hm" 'describe-mode
     "ht" 'counsel-load-theme
 
     ;; open
@@ -359,7 +360,8 @@
   (setq org-highlight-latex-and-related '(latex))
   (setq org-list-allow-alphabetical t)
   (add-hook 'org-mode-hook 'variable-pitch-mode)
-  (add-hook 'org-mode-hook 'visual-line-mode))
+  (add-hook 'org-mode-hook 'visual-line-mode)
+  )
 
 (use-package org-superstar
   :straight t
