@@ -226,11 +226,18 @@
     (interactive)
     (find-file user-init-file))
 
+  (defun browse-file-directory ()
+    "Open the current file's directory however the OS would."
+    (interactive)
+    (if default-directory
+        (browse-url-of-file (expand-file-name default-directory))
+      (error "No `default-directory' to open")))
+
   (defun kill-other-buffers ()
     "Kill all other buffers."
     (interactive)
-    (mapc 'kill-buffer 
-          (delq (current-buffer) 
+    (mapc 'kill-buffer
+          (delq (current-buffer)
                 (remove-if-not 'buffer-file-name (buffer-list)))))
 
   (defun kill-compilation ()
@@ -304,7 +311,7 @@
     "ht" 'counsel-load-theme
 
     ;; open
-    "oo" 'make-frame
+    "oo" 'browse-file-directory
 
     ;; shell
     "'" 'shell-pop
