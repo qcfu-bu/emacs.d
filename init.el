@@ -216,7 +216,10 @@
 
   (general-define-key
    "M-x" 'counsel-M-x
-   "M-f" 'swiper)
+   "M-f" 'swiper
+   "M-0" 'text-scale-adjust
+   "M-=" 'text-scale-increase
+   "M--" 'text-scale-decrease)
 
   ;; helper
   (defun init-file ()
@@ -345,9 +348,17 @@
   :straight t
   :defer t
   :mode (("\\.org\\'" . org-mode))
-  :config
+  :init
   (setq org-highlight-latex-and-related '(latex))
-  (setq org-list-allow-alphabetical t))
+  (setq org-list-allow-alphabetical t)
+  (add-hook 'org-mode-hook 'variable-pitch-mode)
+  (add-hook 'org-mode-hook 'visual-line-mode))
+
+(use-package org-superstar
+  :straight t
+  :defer t
+  :init
+  (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1))))
 
 ;;; latex
 (use-package tex-site
@@ -389,7 +400,6 @@
   :init
   (add-hook 'tuareg-mode-hook 'merlin-mode)
   (add-hook 'tuareg-mode-hook 'utop-minor-mode)
-  :config
   (space-local-leader
     :states '(normal motion)
     :keymaps 'tuareg-mode-map
