@@ -223,6 +223,13 @@
     (interactive)
     (find-file user-init-file))
 
+  (defun kill-other-buffers ()
+    "Kill all other buffers."
+    (interactive)
+    (mapc 'kill-buffer 
+          (delq (current-buffer) 
+                (remove-if-not 'buffer-file-name (buffer-list)))))
+
   (defun kill-compilation ()
     (interactive)
     (quit-windows-on "*compilation*"))
@@ -267,6 +274,7 @@
     "bb" 'ivy-switch-buffer
     "bB" 'list-buffers
     "bk" 'kill-buffer
+    "bK" 'kill-other-buffers
     "bd" 'kill-this-buffer
     "be" 'eval-buffer
     "bn" 'evil-next-buffer
