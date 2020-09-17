@@ -49,7 +49,8 @@
     (exec-path-from-shell-initialize)))
 
 (use-package restart-emacs
-  :straight t)
+  :straight t
+  :defer t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; core ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -74,46 +75,45 @@
   :config
   (which-key-mode))
 
+(use-package ivy-prescient
+  :straight t
+  :defer t)
+
 (use-package counsel
   :straight t
   :config
-  (ivy-mode))
-
-(use-package company
-  :straight t
-  :init
-  (setq company-tooltip-limit 20)
-  (setq company-idle-delay 0.3)
-  (setq company-echo-delay 0)
-  (setq company-begin-commands '(self-insert-command))
-  :config
-  (add-hook 'prog-mode-hook #'company-mode))
-
-(use-package ivy-prescient
-  :straight t
-  :after ivy
-  :config
+  (ivy-mode)
   (ivy-prescient-mode)
   (prescient-persist-mode))
 
 (use-package company-prescient
   :straight t
-  :after company
-  :config
+  :defer t)
+
+(use-package company
+  :straight t
+  :defer t
+  :hook (prog-mode . company-mode)
+  :init
+  (setq company-tooltip-limit 20)
+  (setq company-idle-delay 0.3)
+  (setq company-echo-delay 0)
+  (setq company-begin-commands '(self-insert-command))
   (company-prescient-mode)
   (prescient-persist-mode))
 
 (use-package smartparens
   :straight t
+  :defer t
+  :hook ((prog-mode . smartparens-mode)
+         (prog-mode . show-smartparens-mode))
   :config
-  (require 'smartparens-config)
-  (add-hook 'prog-mode-hook #'show-smartparens-mode)
-  (add-hook 'prog-mode-hook #'smartparens-mode))
+  (require 'smartparens-config))
 
 (use-package rainbow-delimiters
   :straight t
-  :config
-  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+  :defer t
+  :hook (prog-mode . rainbow-delimiters-mode))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; tools ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -122,16 +122,19 @@
 ;;; shell
 (use-package shell-pop
   :straight t
-  :config
+  :defer t
+  :init
   (setq shell-pop-shell-type
 	(quote ("term" "*terminal-popup*"
 		(lambda nil (term shell-pop-term-shell)))))
   (setq shell-pop-term-shell "/bin/zsh")
+  :config
   (shell-pop--set-shell-type 'shell-pop-shell-type shell-pop-shell-type))
 
 ;;; git
 (use-package magit
-  :straight t)
+  :straight t
+  :defer t)
 
 (use-package evil-magit
   :straight t
@@ -139,7 +142,8 @@
 
 ;;; treemacs
 (use-package treemacs
-  :straight t)
+  :straight t
+  :defer t)
 
 (use-package treemacs-evil
   :straight t
@@ -149,30 +153,30 @@
 (use-package projectile
   :straight t
   :config
-  (projectile-mode +1))
+  (projectile-mode 1))
 
 (use-package counsel-projectile
   :straight t
-  :after projectile
   :config
   (counsel-projectile-mode))
 
 ;;; checker
 (use-package flycheck
   :straight t
-  :config
-  (add-hook 'prog-mode-hook #'flycheck-mode))
+  :defer t
+  :hook (prog-mode . flycheck-mode))
 
 (use-package flyspell
   :straight t
-  :config
-  (add-hook 'text-mode-hook #'flyspell-mode))
+  :defer t
+  :hook (text-mode . flyspell-mode))
 
 ;;; todo
 (use-package hl-todo
   :straight t
-  :config
-  (add-hook 'prog-mode-hook #'hl-todo-mode)
+  :defer t
+  :hook (prog-mode . hl-todo-mode)
+  :init
   (setq hl-todo-keyword-faces
       '(("TODO"   . "orange")
         ("FIXME"  . "red")
@@ -187,7 +191,8 @@
 ;;; themes
 (use-package doom-themes
   :straight t
-  :config
+  :defer t
+  :init
   (load-theme 'doom-one-light t))
 
 ;;; font
@@ -356,18 +361,17 @@
   :straight t
   :defer t
   :mode (("\\.org\\'" . org-mode))
+  :hook ((org-mode . variable-pitch-mode)
+         (org-mode . visual-line-mode))
   :init
   (setq org-highlight-latex-and-related '(latex))
-  (setq org-list-allow-alphabetical t)
-  (add-hook 'org-mode-hook 'variable-pitch-mode)
-  (add-hook 'org-mode-hook 'visual-line-mode)
-  )
+  (setq org-list-allow-alphabetical t))
 
 (use-package org-superstar
   :straight t
   :defer t
-  :init
-  (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1))))
+  :after org
+  :hook (org-mode . org-superstar-mode))
 
 ;;; latex
 (use-package tex-site
@@ -397,18 +401,18 @@
 (use-package utop
   :straight t
   :defer t
+  :hook (utop-mode . company-mode)
   :init
-  (setq utop-command "opam config exec -- utop -emacs")
-  (add-hook 'utop-mode-hook #'company-mode))
+  (setq utop-command "opam config exec -- utop -emacs"))
 
 (use-package tuareg
   :straight t
   :defer t
   :mode (("\\.ml[lipy]?$" . tuareg-mode)
 	 ("\\.topml$" . tuareg-mode))
+  :hook ((tuareg-mode . merlin-mode)
+         (tuareg-mode . utop-minor-mode))
   :init
-  (add-hook 'tuareg-mode-hook 'merlin-mode)
-  (add-hook 'tuareg-mode-hook 'utop-minor-mode)
   (space-local-leader
     :states '(normal motion)
     :keymaps 'tuareg-mode-map
@@ -426,8 +430,7 @@
   :straight t
   :defer t
   :mode (("\\.v\\'" . coq-mode))
-  :init
-  (add-hook 'coq-mode-hook #'company-coq-mode))
+  :hook (coq-mode . company-coq-mode))
 
 (use-package company-coq
   :straight t
@@ -435,7 +438,9 @@
 
 ;;; ats
 (use-package smart-compile
-  :straight t)
+  :straight t
+  :defer t
+  :hook (ats2-mode . smart-compile-mode))
 
 (load-file "~/.emacs.d/obscure/ats2-mode.el")
 
