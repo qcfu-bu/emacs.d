@@ -44,6 +44,7 @@
 
 (use-package exec-path-from-shell
   :straight t
+  :defer 1
   :config
   (when (memq window-system '(mac ns x))
     (exec-path-from-shell-initialize)))
