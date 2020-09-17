@@ -26,8 +26,13 @@
 (blink-cursor-mode 0)
 (save-place-mode 1)
 
+(setq
+ ;; avoid checking packages on startup to speed it up
+ straight-check-for-modifications '(check-on-save)
+ ;; put all autoloads into a single file
+ straight-cache-autoloads t)
+
 (defvar bootstrap-version)
-(setq straight-process-buffer " *straight-process*")
 (let ((bootstrap-file
        (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
       (bootstrap-version 5))
