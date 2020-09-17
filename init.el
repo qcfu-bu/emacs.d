@@ -474,10 +474,10 @@
     :defer t
     :hook (ats2-mode . smart-compile-mode))
 
-  (load-file "~/.emacs.d/obscure/ats2-mode.el")
+  (load-file "~/.emacs.d/other/ats2-mode.el")
 
 ;;; fython
-  (load-file "~/.emacs.d/obscure/fython.el")
+  (load-file "~/.emacs.d/other/fython.el")
 
 
   )
