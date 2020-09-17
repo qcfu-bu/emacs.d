@@ -52,6 +52,12 @@
   (when (memq window-system '(mac ns x))
     (exec-path-from-shell-initialize)))
 
+(use-package esup
+  :straight t
+  :commands (esup)
+  :init
+  (setq esup-depth 0))
+
 (use-package restart-emacs
   :straight t
   :defer t)
