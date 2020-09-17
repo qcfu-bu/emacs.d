@@ -28,6 +28,7 @@
   (scroll-bar-mode 0)
   (blink-cursor-mode 0)
   (save-place-mode 1)
+  (global-auto-revert-mode t)
 
   (setq straight-check-for-modifications '(check-on-save)
         straight-cache-autoloads t)
@@ -422,6 +423,10 @@
     :straight t
     :defer t)
 
+  (use-package ocp-indent
+    :straight t
+    :defer t)
+
   (use-package merlin
     :straight t
     :defer t
@@ -443,7 +448,9 @@
     :mode (("\\.ml[lipy]?$" . tuareg-mode)
            ("\\.topml$" . tuareg-mode))
     :hook ((tuareg-mode . merlin-mode)
-           (tuareg-mode . utop-minor-mode))
+           (tuareg-mode . utop-minor-mode)
+           (tuareg-mode . ocp-setup-indent)
+           (tuareg-mode . ocp-indent-on-save))
     :init
     (space-local-leader
       :states '(normal motion)
@@ -455,7 +462,9 @@
       "e" 'utop-eval-phrase
       "r" 'utop-eval-region
       "b" 'utop-eval-buffer
-      "k" 'utop-kill))
+      "k" 'utop-kill)
+    (defun ocp-indent-on-save ()
+      (add-hook 'before-save-hook 'ocp-indent-buffer (merlin-mode))))
 
 ;;; coq
   (use-package proof-general
