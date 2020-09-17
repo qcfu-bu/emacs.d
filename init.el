@@ -206,6 +206,11 @@
     :init
     (load-theme 'doom-one-light t))
 
+  (use-package telephone-line
+    :straight t
+    :config
+    (telephone-line-mode 1))
+
 ;;; font
   (setq default-frame-alist '((font . "Roboto Mono-14")))
 
