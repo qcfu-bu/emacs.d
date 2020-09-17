@@ -410,9 +410,17 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; ocaml
-  (use-package merlin
+  (use-package flycheck-ocaml
     :straight t
     :defer t)
+
+  (use-package merlin
+    :straight t
+    :defer t
+    :init
+    (setq merlin-error-after-save nil)
+    :config
+    (flycheck-ocaml-setup))
 
   (use-package utop
     :straight t
