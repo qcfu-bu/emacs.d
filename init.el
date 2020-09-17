@@ -217,6 +217,9 @@
 ;;; line numbers
   (add-hook 'prog-mode-hook #'display-line-numbers-mode)
 
+;;; whitespaces
+  (add-hook 'before-save-hook 'delete-trailing-whitespace)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; keybindings ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -369,7 +372,7 @@
      "gc" 'comment-dwim))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; writing ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; prose ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; org
@@ -381,7 +384,12 @@
            (org-mode . visual-line-mode))
     :init
     (setq org-highlight-latex-and-related '(latex))
-    (setq org-list-allow-alphabetical t))
+    (setq org-list-allow-alphabetical t)
+    (setq org-pretty-entities t))
+
+  (use-package evil-org
+    :straight t
+    :after org)
 
   (use-package org-superstar
     :straight t
@@ -404,7 +412,7 @@
     :straight t
     :defer t
     :mode (("\\.md\\'" . markdown-mode)))
-  
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; languages ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -471,7 +479,7 @@
 ;;; fython
   (load-file "~/.emacs.d/obscure/fython.el")
 
-  
+
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
