@@ -12,7 +12,6 @@
 (add-hook
  'after-init-hook
  (lambda () (setq gc-cons-threshold 16777216)))
-
 (setq inhibit-startup-screen t)
 (setq inhibit-startup-echo-area-message t)
 (setq inhibit-startup-message t)
