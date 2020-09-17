@@ -363,8 +363,8 @@
     ;; insert state
     (general-define-key
      :states 'insert
-     (general-chord "jk") 'evil-normal-state
-     (general-chord "kj") 'evil-normal-state)
+     (general-chord "fd") 'evil-normal-state
+     (general-chord "df") 'evil-normal-state)
 
     ;; visual state
     (general-define-key
