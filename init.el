@@ -298,12 +298,14 @@
       "qq" 'save-buffers-kill-terminal
       "qr" 'restart-emacs
 
+      ;; init file
+      "ii" 'init-file
+
       ;; files
       "ff" 'find-file
       "fr" 'counsel-recentf
       "fs" 'save-buffer
       "fd" 'dired
-      "fi" 'init-file
 
       ;; buffer
       "bb" 'ivy-switch-buffer
