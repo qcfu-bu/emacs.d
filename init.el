@@ -464,7 +464,7 @@
       "b" 'utop-eval-buffer
       "k" 'utop-kill)
     (defun ocp-indent-on-save ()
-      (add-hook 'before-save-hook 'ocp-indent-buffer (merlin-mode))))
+      (add-hook 'before-save-hook 'ocp-indent-buffer 0 (merlin-mode))))
 
 ;;; coq
   (use-package proof-general
