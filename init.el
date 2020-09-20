@@ -10,10 +10,8 @@
 ;;; startup ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-  (setq gc-cons-threshold 402653184)
-  (add-hook
-   'after-init-hook
-   (lambda () (setq gc-cons-threshold 16777216)))
+  (setq gc-cons-threshold 100000000)
+  (add-hook 'after-init-hook (lambda () (setq gc-cons-threshold 800000)))
   (setq inhibit-startup-screen t)
   (setq inhibit-startup-message t)
   (setq inhibit-startup-echo-area-message t)
