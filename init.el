@@ -225,6 +225,8 @@
 
   (use-package key-chord
     :straight t
+    :init
+    (setq key-chord-two-keys-delay 0.5)
     :config
     (key-chord-mode 1))
 
@@ -364,8 +366,8 @@
     ;; insert state
     (general-define-key
      :states 'insert
-     (general-chord "jj") 'evil-normal-state
-     (general-chord "jj") 'evil-normal-state)
+     (general-chord "fd") 'evil-normal-state
+     (general-chord "df") 'evil-normal-state)
 
     ;; visual state
     (general-define-key
