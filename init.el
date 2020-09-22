@@ -364,8 +364,8 @@
     ;; insert state
     (general-define-key
      :states 'insert
-     (general-chord "fd") 'evil-normal-state
-     (general-chord "df") 'evil-normal-state)
+     (general-chord "jj") 'evil-normal-state
+     (general-chord "jj") 'evil-normal-state)
 
     ;; visual state
     (general-define-key
@@ -381,8 +381,7 @@
     :straight t
     :defer t
     :mode (("\\.org\\'" . org-mode))
-    :hook ((org-mode . variable-pitch-mode)
-           (org-mode . visual-line-mode))
+    :hook ((org-mode . visual-line-mode))
     :init
     (setq org-highlight-latex-and-related '(latex))
     (setq org-list-allow-alphabetical t)
@@ -397,6 +396,11 @@
     :defer t
     :after org
     :hook (org-mode . org-superstar-mode))
+
+  (use-package gnuplot
+    :straight t
+    :defer t
+    :after org)
 
 ;;; latex
   (use-package tex-site
@@ -476,6 +480,38 @@
   (use-package company-coq
     :straight t
     :defer t)
+
+;;; c/c++
+  (use-package irony
+    :straight t
+    :defer t
+    :hook ((c++-mode . irony-mode)
+           (c-mode . irony-mode)
+           (objc-mode . irony-mode)
+           (irony-mode . irony-cdb-autosetup-compile-options)))
+
+  (use-package company-irony
+    :straight t
+    :defer t
+    :after company
+    :init
+    (add-to-list 'company-backends 'company-irony))
+
+  (use-package flycheck-irony
+    :straight t
+    :defer t
+    :after flycheck
+    :hook (flycheck-mode . flycheck-irony-setup))
+
+;;; java
+  (use-package meghanada
+    :straight t
+    :defer t
+    :hook ((java-mode . meghanada-mode)
+           (before-save . meghanada-code-beautify-before-save))
+    :init
+    (setq meghanada-java-path "java")
+    (setq meghanada-maven-path "mvn"))
 
 ;;; ats
   (use-package smart-compile
