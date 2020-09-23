@@ -366,8 +366,7 @@
     ;; insert state
     (general-define-key
      :states 'insert
-     (general-chord "fd") 'evil-normal-state
-     (general-chord "df") 'evil-normal-state)
+     (general-chord "fd") 'evil-normal-state)
 
     ;; visual state
     (general-define-key
@@ -385,6 +384,7 @@
     :mode (("\\.org\\'" . org-mode))
     :hook ((org-mode . visual-line-mode))
     :init
+    (setq org-latex-caption-above nil)
     (setq org-highlight-latex-and-related '(latex))
     (setq org-list-allow-alphabetical t)
     (setq org-pretty-entities t))
@@ -527,7 +527,7 @@
   (load-file "~/.emacs.d/other/fython.el")
 
 
-  )
+  ;; )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; custom ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
