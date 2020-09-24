@@ -20,7 +20,6 @@
 (setq-default indent-tabs-mode nil)
 (tooltip-mode 0)
 (tool-bar-mode 0)
-(menu-bar-mode 0)
 (scroll-bar-mode 0)
 (blink-cursor-mode 0)
 (save-place-mode 1)
