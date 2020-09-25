@@ -23,7 +23,7 @@
 (customize-set-variable 'tooltip-mode nil)
 (customize-set-variable 'scroll-bar-mode nil)
 (customize-set-variable 'horizontal-scroll-bar-mode nil)
-(customize-set-variable 'blink-cursor-end nil)
+(customize-set-variable 'blink-cursor-mode nil)
 (save-place-mode 1)
 (global-auto-revert-mode t)
 
