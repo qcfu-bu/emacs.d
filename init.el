@@ -18,9 +18,12 @@
 (setq ring-bell-function 'ignore)
 (setq-default line-spacing 0)
 (setq-default indent-tabs-mode nil)
-(tooltip-mode 0)
-(tool-bar-mode 0)
-(blink-cursor-mode 0)
+(customize-set-variable 'menu-bar-mode nil)
+(customize-set-variable 'tool-bar-mode nil)
+(customize-set-variable 'tooltip-mode nil)
+(customize-set-variable 'scroll-bar-mode nil)
+(customize-set-variable 'horizontal-scroll-bar-mode nil)
+(customize-set-variable 'blink-cursor-end nil)
 (save-place-mode 1)
 (global-auto-revert-mode t)
 
@@ -532,8 +535,6 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- (customize-set-variable 'scroll-bar-mode nil)
- (customize-set-variable 'horizontal-scroll-bar-mode nil)
  )
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
