@@ -18,6 +18,7 @@
 (setq ring-bell-function 'ignore)
 (setq-default line-spacing 0)
 (setq-default indent-tabs-mode nil)
+(customize-set-variable 'make-backup-files nil)
 (customize-set-variable 'menu-bar-mode nil)
 (customize-set-variable 'tool-bar-mode nil)
 (customize-set-variable 'tooltip-mode nil)
