@@ -382,7 +382,8 @@
   :straight t
   :defer t
   :mode (("\\.org\\'" . org-mode))
-  :hook ((org-mode . visual-line-mode))
+  :hook ((org-mode . org-indent-mode)
+         (org-mode . variable-pitch-mode))
   :init
   (setq org-latex-caption-above nil)
   (setq org-highlight-latex-and-related '(latex))
@@ -398,11 +399,6 @@
   :defer t
   :after org
   :hook (org-mode . org-superstar-mode))
-
-(use-package gnuplot
-  :straight t
-  :defer t
-  :after org)
 
 ;;; latex
 (use-package tex-site
